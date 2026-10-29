@@ -1,0 +1,13 @@
+{
+  "name": "voight-kampff",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Firefox extension that flags AI-generated Reddit comments and bot-like accounts.",
+  "license": "MIT",
+  "scripts": {
+    "test": "node --test test/*.test.js",
+    "lint": "npx --yes web-ext@8 lint --ignore-files 'test/**' 'package*.json'",
+    "build": "npx --yes web-ext@8 build --overwrite-dest --ignore-files 'test/**' 'package*.json'",
+    "start": "npx --yes web-ext@8 run --start-url https://old.reddit.com"
+  }
+}

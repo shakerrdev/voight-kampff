@@ -1,0 +1,45 @@
+{
+  "manifest_version": 3,
+  "name": "Voight-Kampff",
+  "version": "0.1.0",
+  "description": "Flags AI-generated Reddit comments and bot-like accounts.",
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "voight-kampff@shakerrdev",
+      "strict_min_version": "128.0",
+      "data_collection_permissions": {
+        "required": ["none"]
+      }
+    }
+  },
+  "permissions": ["storage"],
+  "host_permissions": ["*://*.reddit.com/*"],
+  "icons": {
+    "48": "icons/icon.svg",
+    "96": "icons/icon.svg"
+  },
+  "action": {
+    "default_title": "Voight-Kampff",
+    "default_popup": "popup/popup.html",
+    "default_icon": "icons/icon.svg"
+  },
+  "content_scripts": [
+    {
+      "matches": ["*://www.reddit.com/*", "*://old.reddit.com/*", "*://new.reddit.com/*", "*://np.reddit.com/*"],
+      "js": [
+        "src/core.js",
+        "src/text/fingerprints.js",
+        "src/text/style.js",
+        "src/text/analyze.js",
+        "src/account/api.js",
+        "src/account/behaviour.js",
+        "src/account/cache.js",
+        "src/ui/badge.js",
+        "src/dom/reddit.js",
+        "src/main.js"
+      ],
+      "css": ["src/ui/badge.css"],
+      "run_at": "document_idle"
+    }
+  ]
+}
