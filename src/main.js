@@ -166,7 +166,7 @@
       record.accountBadge = VK.ui.pending(item.author);
       place(item, record.accountBadge);
     } else {
-      visibility.observe(badgeHost(item) || item.container);
+      visibility.observe(item.container);
     }
   }
 
