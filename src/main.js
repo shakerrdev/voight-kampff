@@ -18,6 +18,7 @@
   function place(item, el, after) {
     const host = badgeHost(item);
     if (host) (after || host).after(el);
+    else if (item.meta) item.meta.append(el);
     else if (item.body) item.body.before(el);
     else item.container.prepend(el);
   }
@@ -38,7 +39,7 @@
     el.classList.remove("vk-marked-medium", "vk-marked-high", "vk-dim", "vk-collapsed");
     record.reveal?.remove();
     record.reveal = null;
-    if (level !== "low") el.classList.add(`vk-marked-${level}`);
+    if (level !== "low" && el !== record.item.container) el.classList.add(`vk-marked-${level}`);
     if (level !== "high" || record.revealed) return;
 
     if (settings.highAction === "dim") el.classList.add("vk-dim");
@@ -176,6 +177,10 @@
   function onMutations(list) {
     const roots = new Set();
     for (const m of list) {
+      if (m.type === "attributes") {
+        roots.add(m.target);
+        continue;
+      }
       for (const node of m.addedNodes) {
         if (node.nodeType !== 1 || node.classList?.contains("vk-badge") || node.classList?.contains("vk-tooltip")) continue;
         roots.add(node);
@@ -202,7 +207,7 @@
     if (!settings.enabled) return;
     visibility = new IntersectionObserver(onVisible, { rootMargin: "300px 0px" });
     mutations = new MutationObserver(onMutations);
-    mutations.observe(document.body, { childList: true, subtree: true });
+    mutations.observe(document.body, { childList: true, subtree: true, attributes: true, attributeFilter: ["author", "data-author"] });
     scan(document);
   }
 
