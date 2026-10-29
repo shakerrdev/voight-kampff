@@ -38,6 +38,11 @@
       return job;
     },
 
+    async forget(name) {
+      inflight.delete(name.toLowerCase());
+      await area()?.remove(key(name));
+    },
+
     async stats() {
       const all = (await area()?.get(null)) || {};
       return { cached: Object.keys(all).filter((k) => k.startsWith(PREFIX)).length };
