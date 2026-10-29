@@ -64,7 +64,8 @@
   text-align: left;
 }
 .vk-tooltip.vk-open { display: block; }
-.vk-tooltip header { display: flex; justify-content: space-between; gap: 8px; align-items: baseline; margin-bottom: 4px; }
+.vk-tooltip * { box-sizing: border-box; position: static; float: none; max-width: none; }
+.vk-tooltip .vk-head { display: flex; justify-content: space-between; gap: 8px; align-items: baseline; margin-bottom: 4px; }
 .vk-tooltip strong { font-size: 13px; overflow: hidden; text-overflow: ellipsis; }
 .vk-tooltip .vk-score { font: 600 11px ui-monospace, monospace; white-space: nowrap; }
 .vk-tooltip .vk-score.vk-high { color: #ff7a5c; }
@@ -80,7 +81,7 @@
 .vk-tooltip .vk-tier { font-size: 10px; color: #6f7686; text-transform: uppercase; letter-spacing: 0.05em; }
 .vk-tooltip .vk-tier-style .vk-w { color: #f5c26b; }
 .vk-tooltip .vk-tier-account .vk-w { color: #c9cdd6; }
-.vk-tooltip footer { display: flex; gap: 6px; margin-top: 10px; }
+.vk-tooltip .vk-foot { display: flex; gap: 6px; margin-top: 10px; }
 .vk-tooltip button {
   padding: 3px 10px;
   border: 1px solid #3a4050;

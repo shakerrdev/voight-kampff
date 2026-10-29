@@ -35,7 +35,7 @@
 
   function ensureTooltip() {
     if (tooltip) return tooltip;
-    tooltip = h("div", { class: "vk-tooltip", role: "dialog" });
+    tooltip = h("div", { class: "vk-tooltip", role: "tooltip" });
     tooltip.addEventListener("mouseenter", () => clearTimeout(hideTimer));
     tooltip.addEventListener("mouseleave", scheduleHide);
     document.body.append(tooltip);
@@ -100,13 +100,13 @@
       el.textContent = account.declared ? "bot ✓" : account.status === "error" ? "?" : `bot ${pct}`;
       el.removeAttribute("title");
       bindHover(el, () => [
-        h("header", {},
+        h("div", { class: "vk-head" },
           h("strong", {}, `u/${author}`),
           h("span", { class: `vk-score vk-${level}` }, account.declared ? "declared bot" : `${pct}% bot-like`),
         ),
         h("p", { class: "vk-stats" }, statsLine(account.stats || {})),
         signalList(account.signals),
-        h("footer", {},
+        h("div", { class: "vk-foot" },
           h("button", { type: "button", onclick: () => actions.trust(author) }, "Trust user"),
           h("button", { type: "button", onclick: () => actions.recheck(author) }, "Recheck"),
         ),
@@ -120,7 +120,7 @@
       const label = analysis.tier === "fingerprint" ? `AI ${pct}` : `AI? ${pct}`;
       const el = h("span", { class: `vk-badge vk-text vk-${level}`, tabindex: "0" }, label);
       bindHover(el, () => [
-        h("header", {},
+        h("div", { class: "vk-head" },
           h("strong", {}, "This text"),
           h("span", { class: `vk-score vk-${level}` }, `${pct}% AI-like`),
         ),
