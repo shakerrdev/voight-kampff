@@ -1,0 +1,76 @@
+:root {
+  --bg: #ffffff;
+  --fg: #1b1e25;
+  --muted: #6b7280;
+  --line: #e5e7eb;
+  --accent: #ff5a36;
+  --track: #d1d5db;
+  color-scheme: light dark;
+}
+@media (prefers-color-scheme: dark) {
+  :root { --bg: #14161c; --fg: #e8eaf0; --muted: #9aa1b1; --line: #262a33; --track: #3a4050; }
+}
+
+* { box-sizing: border-box; }
+body {
+  width: 320px;
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font: 13px/1.4 system-ui, -apple-system, "Segoe UI", sans-serif;
+  accent-color: var(--accent);
+}
+body.off section { opacity: 0.45; pointer-events: none; }
+
+header { display: flex; align-items: center; gap: 10px; padding: 12px 14px; border-bottom: 1px solid var(--line); }
+header div { flex: 1; }
+h1 { margin: 0; font-size: 15px; }
+.sub { margin: 0; color: var(--muted); font-size: 11px; }
+
+section { padding: 10px 14px; border-bottom: 1px solid var(--line); }
+section:last-of-type { border-bottom: 0; }
+h2 { margin: 0 0 6px; color: var(--muted); font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; }
+
+.row { display: flex; align-items: center; gap: 8px; min-height: 26px; }
+.row.indent { padding-left: 22px; }
+.row em { color: var(--muted); font-size: 11px; font-style: normal; }
+.row.select, .cache .row { justify-content: space-between; }
+.range { display: block; margin: 4px 0 8px; }
+.range span { display: flex; justify-content: space-between; }
+.range output { font: 600 12px ui-monospace, monospace; }
+.range input { width: 100%; }
+.muted { color: var(--muted); }
+
+select, button {
+  padding: 3px 8px;
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+}
+button { cursor: pointer; }
+button:hover { border-color: var(--accent); }
+
+#trusted { margin: 0; padding: 0; list-style: none; max-height: 110px; overflow: auto; }
+#trusted li { display: flex; justify-content: space-between; align-items: center; padding: 2px 0; }
+#trusted button { padding: 0 6px; line-height: 18px; }
+#trusted-empty { margin: 0; font-size: 12px; }
+
+.switch { position: relative; width: 34px; height: 20px; }
+.switch input { position: absolute; opacity: 0; inset: 0; margin: 0; cursor: pointer; z-index: 1; }
+.switch span { position: absolute; inset: 0; border-radius: 10px; background: var(--track); transition: background 0.15s; }
+.switch span::after {
+  content: "";
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #fff;
+  transition: transform 0.15s;
+}
+.switch input:checked + span { background: var(--accent); }
+.switch input:checked + span::after { transform: translateX(14px); }
+.switch input:focus-visible + span { outline: 2px solid var(--accent); outline-offset: 2px; }

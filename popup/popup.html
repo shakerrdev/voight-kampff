@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Voight-Kampff</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <header>
+    <img src="../icons/icon.svg" alt="" width="28" height="28">
+    <div>
+      <h1>Voight-Kampff</h1>
+      <p class="sub">Reddit bot &amp; AI text detector</p>
+    </div>
+    <label class="switch" title="Enable on Reddit">
+      <input type="checkbox" name="enabled">
+      <span></span>
+    </label>
+  </header>
+
+  <section>
+    <h2>Detection</h2>
+    <label class="row"><input type="checkbox" name="textDetection"> AI text (fingerprints)</label>
+    <label class="row indent"><input type="checkbox" name="styleHeuristics"> Style heuristics <em>low confidence</em></label>
+    <label class="row"><input type="checkbox" name="accountDetection"> Account behaviour &amp; history</label>
+  </section>
+
+  <section>
+    <h2>Thresholds</h2>
+    <label class="range">
+      <span>Show badges from <output name="showThresholdOut"></output></span>
+      <input type="range" name="showThreshold" min="5" max="95" step="5">
+    </label>
+    <label class="range">
+      <span>High suspicion from <output name="highThresholdOut"></output></span>
+      <input type="range" name="highThreshold" min="10" max="100" step="5">
+    </label>
+    <label class="row select">
+      <span>On high suspicion</span>
+      <select name="highAction">
+        <option value="none">Only mark</option>
+        <option value="dim">Dim</option>
+        <option value="collapse">Collapse</option>
+      </select>
+    </label>
+    <label class="row"><input type="checkbox" name="showCleanBadges"> Also badge clean accounts</label>
+  </section>
+
+  <section>
+    <h2>Trusted users</h2>
+    <ul id="trusted"></ul>
+    <p id="trusted-empty" class="muted">None yet. Use “Trust user” in a badge tooltip.</p>
+  </section>
+
+  <section class="cache">
+    <label class="row select">
+      <span>Cache account checks for</span>
+      <select name="cacheHours">
+        <option value="1">1 hour</option>
+        <option value="6">6 hours</option>
+        <option value="12">12 hours</option>
+        <option value="24">1 day</option>
+        <option value="168">1 week</option>
+      </select>
+    </label>
+    <div class="row">
+      <span id="cache-count" class="muted"></span>
+      <button type="button" id="clear-cache">Clear cache</button>
+    </div>
+  </section>
+
+  <script src="../src/core.js"></script>
+  <script src="../src/account/cache.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>
