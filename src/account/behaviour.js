@@ -145,7 +145,7 @@
         }
         if ((item.text.match(/\S+/g) || []).length >= 30) {
           eligible++;
-          if (r.score >= 0.35) styled++;
+          if (r.score >= 0.3) styled++;
         }
       }
       if (fingerprinted) {
