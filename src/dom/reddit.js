@@ -15,15 +15,24 @@
     }) || null;
   }
 
+  function ownSlot(el, slot) {
+    return [...el.querySelectorAll(`[slot="${slot}"]`)].find((n) => n.parentElement?.closest(el.localName) === el) || null;
+  }
+
+  function ownFirst(el, selector, scope = el) {
+    return [...scope.querySelectorAll(selector)].find((n) => n.closest(el.localName) === el) || null;
+  }
+
   const adapters = [
     {
       name: "shreddit-comment",
       selector: "shreddit-comment[author]",
       read(el) {
         const author = el.getAttribute("author");
-        const body = el.querySelector(':scope > [slot="comment"]');
-        const meta = el.querySelector(':scope > [slot="commentMeta"]');
-        return { author, body, text: textOf(body), links: linksIn(body), anchor: authorLink(meta, author), container: el };
+        const body = ownSlot(el, "comment");
+        const meta = ownSlot(el, "commentMeta");
+        const anchor = authorLink(meta, author) || (meta && ownFirst(el, "faceplate-timeago, time", meta));
+        return { author, body, meta, text: textOf(body), links: linksIn(body), anchor, container: el };
       },
     },
     {
@@ -31,15 +40,17 @@
       selector: "shreddit-post[author]",
       read(el) {
         const author = el.getAttribute("author");
-        const body = el.querySelector('[slot="text-body"]');
-        const title = el.getAttribute("post-title") || textOf(el.querySelector('[slot="title"]'));
-        const credit = el.querySelector('[slot="credit-bar"]') || el;
+        const body = ownSlot(el, "text-body");
+        const title = el.getAttribute("post-title") || textOf(ownSlot(el, "title"));
+        const credit = ownSlot(el, "credit-bar");
+        const anchor = authorLink(credit || el, author) || ownFirst(el, "faceplate-timeago, time", credit || el);
         return {
           author,
           body,
+          meta: credit,
           text: [title, textOf(body)].filter(Boolean).join("\n\n"),
           links: linksIn(body),
-          anchor: authorLink(credit, author),
+          anchor,
           container: el,
         };
       },
