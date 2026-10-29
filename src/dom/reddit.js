@@ -11,7 +11,7 @@
     const lower = author.toLowerCase();
     return [...scope.querySelectorAll('a[href*="/user/"], a[href*="/u/"]')].find((a) => {
       const m = a.getAttribute("href").match(/\/(?:user|u)\/([^/?#]+)/i);
-      return m && decodeURIComponent(m[1]).toLowerCase() === lower;
+      return m && decodeURIComponent(m[1]).toLowerCase() === lower && a.getClientRects().length > 0;
     }) || null;
   }
 
