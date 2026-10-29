@@ -15,6 +15,10 @@
   white-space: nowrap;
   cursor: help;
   user-select: none;
+  position: relative;
+  z-index: 10;
+  pointer-events: auto;
+  flex: none;
 }
 .vk-badge:focus-visible { outline: 2px solid #ff5a36; outline-offset: 1px; }
 .vk-badge.vk-pending { opacity: 0.5; }
